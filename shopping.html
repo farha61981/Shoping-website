@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Shopping Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .products {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .cart {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+
+        .add-to-cart-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Shopping Website</h1>
+    <div class="container">
+        <div class="products">
+            <h2>Products</h2>
+            <ul id="product-list">
+                <li class="product-item">
+                    <span>Product 1</span>
+                    <span>$10</span>
+                    <button class="add-to-cart-button" data-price="10">Add to Cart</button>
+                </li>
+                <li class="product-item">
+                    <span>Product 2</span>
+                    <span>$15</span>
+                    <button class="add-to-cart-button" data-price="15">Add to Cart</button>
+                </li>
+                <li class="product-item">
+                    <span>Product 3</span>
+                    <span>$20</span>
+                    <button class="add-to-cart-button" data-price="20">Add to Cart</button>
+                </li>
+            </ul>
+        </div>
+        <div class="cart">
+            <h2>Shopping Cart</h2>
+            <ul id="cart-list">
+                <li class="product-item">
+                    <span>Product 1</span>
+                    <span>$10</span>
+                </li>
+                <li class="product-item">
+                    <span>Product 2</span>
+                    <span>$15</span>
+                </li>
+                <li class="product-item">
+                    <span>Product 3</span>
+                    <span>$20</span>
+                </li>
+            </ul>
+            <p>Total: $<span id="total-price">45</span></p>
+        </div>
+    </div>
+
+    <script>
+        const productButtons = document.querySelectorAll('.add-to-cart-button');
+        const cartList = document.getElementById('cart-list');
+        const totalPrice = document.getElementById('total-price');
+
+        let currentTotal = 45; // Initial total price
+
+        productButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const product = button.parentElement;
+                const productName = product.children[0].textContent;
+                const productPrice = parseFloat(button.getAttribute('data-price'));
+
+                const cartItem = document.createElement('li');
+                cartItem.innerHTML = `
+                    <span>${productName}</span>
+                    <span>$${productPrice}</span>
+                `;
+
+                cartList.appendChild(cartItem);
+
+                currentTotal += productPrice;
+                totalPrice.textContent = currentTotal.toFixed(2);
+            });
+        });
+    </script>
+</body>
+</html>
